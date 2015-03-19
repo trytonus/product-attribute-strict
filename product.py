@@ -52,7 +52,6 @@ class ProductAttributeSelectionOption(ModelSQL, ModelView):
 class ProductAttribute(ModelSQL, ModelView):
     "Product Attribute"
     __name__ = 'product.attribute'
-    _rec_name = 'display_name'
 
     sets = fields.Many2Many(
         'product.attribute-product.attribute-set',
