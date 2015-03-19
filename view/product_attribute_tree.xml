@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tree string="Product Attribute">
+    <field name="product"/>
+    <field name="attribute"/>
+    <field name="attribute_type"/>
+</tree>

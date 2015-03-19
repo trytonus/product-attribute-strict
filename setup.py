@@ -118,7 +118,7 @@ setup(
             info.get('xml', []) +
             info.get('translation', []) +
             ['tryton.cfg', 'locale/*.po', 'tests/*.rst', 'reports/*.odt'] +
-            ['view/*.xml'],
+            ['view/*.xml']
     },
     classifiers=[
         'Development Status :: 4 - Beta',

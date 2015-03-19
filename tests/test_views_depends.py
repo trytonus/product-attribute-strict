@@ -31,7 +31,6 @@ class TestViewsDepends(unittest.TestCase):
         """
         trytond.tests.test_tryton.install_module('product_attribute_strict')
 
-    @unittest.skip("No views yet")
     def test0005views(self):
         '''
         Test views.
