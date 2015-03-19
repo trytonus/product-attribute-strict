@@ -60,7 +60,9 @@ class ProductAttribute(ModelSQL, ModelView):
 
     name = fields.Char('Name', required=True, select=True, translate=True)
     display_name = fields.Char('Display Name', translate=True)
-    type_ = fields.Selection(ATTRIBUTE_TYPES, 'Type', required=True)
+    type_ = fields.Selection(
+        ATTRIBUTE_TYPES, 'Type', required=True, select=True
+    )
 
     selection = fields.One2Many(
         "product.attribute.selection_option", "attribute", "Selection",
