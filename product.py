@@ -152,6 +152,31 @@ class ProductProductAttribute(ModelSQL, ModelView):
         }, depends=['attribute', 'attribute_type']
     )
 
+    value_boolean = fields.Boolean(
+        "Value Boolean", states={
+            'required': Eval('attribute_type') == 'boolean',
+            'invisible': ~(Eval('attribute_type') == 'boolean'),
+        }, depends=['attribute_type']
+    )
+    value_integer = fields.Integer(
+        "Value Integer", states={
+            'required': Eval('attribute_type') == 'integer',
+            'invisible': ~(Eval('attribute_type') == 'integer'),
+        }, depends=['attribute_type']
+    )
+    value_date = fields.Date(
+        "Value Date", states={
+            'required': Eval('attribute_type') == 'date',
+            'invisible': ~(Eval('attribute_type') == 'date'),
+        }, depends=['attribute_type']
+    )
+    value_datetime = fields.DateTime(
+        "Value Datetime", states={
+            'required': Eval('attribute_type') == 'datetime',
+            'invisible': ~(Eval('attribute_type') == 'datetime'),
+        }, depends=['attribute_type']
+    )
+
     @fields.depends('attribute')
     def on_change_with_attribute_type(self, name=None):
         """
