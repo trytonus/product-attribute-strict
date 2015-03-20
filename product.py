@@ -52,7 +52,6 @@ class ProductAttributeSelectionOption(ModelSQL, ModelView):
 class ProductAttribute(ModelSQL, ModelView):
     "Product Attribute"
     __name__ = 'product.attribute'
-    _rec_name = 'display_name'
 
     sets = fields.Many2Many(
         'product.attribute-product.attribute-set',
@@ -61,7 +60,9 @@ class ProductAttribute(ModelSQL, ModelView):
 
     name = fields.Char('Name', required=True, select=True, translate=True)
     display_name = fields.Char('Display Name', translate=True)
-    type_ = fields.Selection(ATTRIBUTE_TYPES, 'Type', required=True)
+    type_ = fields.Selection(
+        ATTRIBUTE_TYPES, 'Type', required=True, select=True
+    )
 
     selection = fields.One2Many(
         "product.attribute.selection_option", "attribute", "Selection",
@@ -149,6 +150,31 @@ class ProductProductAttribute(ModelSQL, ModelView):
             'required': Eval('attribute_type') == 'selection',
             'invisible': ~(Eval('attribute_type') == 'selection'),
         }, depends=['attribute', 'attribute_type']
+    )
+
+    value_boolean = fields.Boolean(
+        "Value Boolean", states={
+            'required': Eval('attribute_type') == 'boolean',
+            'invisible': ~(Eval('attribute_type') == 'boolean'),
+        }, depends=['attribute_type']
+    )
+    value_integer = fields.Integer(
+        "Value Integer", states={
+            'required': Eval('attribute_type') == 'integer',
+            'invisible': ~(Eval('attribute_type') == 'integer'),
+        }, depends=['attribute_type']
+    )
+    value_date = fields.Date(
+        "Value Date", states={
+            'required': Eval('attribute_type') == 'date',
+            'invisible': ~(Eval('attribute_type') == 'date'),
+        }, depends=['attribute_type']
+    )
+    value_datetime = fields.DateTime(
+        "Value Datetime", states={
+            'required': Eval('attribute_type') == 'datetime',
+            'invisible': ~(Eval('attribute_type') == 'datetime'),
+        }, depends=['attribute_type']
     )
 
     @fields.depends('attribute')
