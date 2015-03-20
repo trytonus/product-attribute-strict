@@ -7,50 +7,27 @@ Tryton has a powerful system of attributes for products introduced by the
 consistency since the lack of foreign keys and constraints allow deletion,
 renaming and editing of selection values even when used by products. 
 
-**This is an experimental module trying to solve a problem in two ways.
-The best solution would be chosen based on acceptable code complexity and
-performance for 10000 products (the average number of SKUs Openlabs
-customers have).**
+This module tries to remain as close as possible to Tryton's attribute
+system, but avoids the dictionary field to have attributes stored on
+separate table.
 
-Solution 1: The Constraint Solution
------------------------------------
+Key differences
+---------------
 
-It should be possible to implement a validation at the level of tryton
-models. This would probably involve overwriting the write method or
-implementing a validation that can ensure the data is consistent.
+1. Options of attributes with the `Selection` type are stores in a new
+   table. 
+   (Core module stores that in a text field in a JSON like syntax)
+2. Attributes of product are stored on a separate table
+   (Core module stores this as JSON serialized text in database)
 
-This would certainly be a slow process and the use of `Postgres JSON
-Functions <http://www.postgresql.org/docs/current/static/functions-json.html>`_
-could probably speed this up. 
+FAQ
+---
 
-Implement validation on following:
+*1. Can you move data from the tryton core module to this module ?*
 
-1. Product Variant
-```````````````````
-On saving a product ensure that the attribute values are still valid
-values based on the attribute and attribute set.
+Yes, you can. An example script is provided to migrate the values
+from Tryton's default attribute system to this one.
 
-2. Attribute
-````````````
+*2. Can this module be installed alongside core `product_attribute` module ?*
 
-On saving attributes of selection type, ensure that the changes do not
-make any of the existing attributes invalid.
-
-Solution 2: The RDBMS solution
-------------------------------
-Another possible solution is to use a database implementation 
-pattern commonly known as `Entity Attribute Value (EAV) 
-<https://en.wikipedia.org/wiki/Entity%E2%80%93attribute%E2%80%93value_model>`_
-model to store attributes instead of the JSON field.
-
-More implementation details
-```````````````````````````
-
-* Adds a new attribute ``type_`` called ``Strict Selection`` which allows
-  possible options of the attribute selection to be created. This would be
-  stored in a new model ``product.attribute.option``
-* Removes the possibilty to use ``selection`` type which used JSON field
-  to store the value.
-* Replaces the dictionary field used to store attributes with a
-  ``One2Many`` field to model ``product.product.attribute``. This would
-  have a field for each type of attribute.
+Yes, nothing stops you from doing that, but it is not recommended.
