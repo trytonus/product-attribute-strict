@@ -26,8 +26,23 @@ FAQ
 *1. Can you move data from the tryton core module to this module ?*
 
 Yes, you can. An example script is provided to migrate the values
-from Tryton's default attribute system to this one.
+from Tryton's default attribute system to this one. The script can
+be found under ``scripts/migrate_from_core_module.py``
 
 *2. Can this module be installed alongside core `product_attribute` module ?*
 
-Yes, nothing stops you from doing that, but it is not recommended.
+Nope. You can use only one of the two modules and obviously we
+recommend ours
+
+Authors and Contributors
+------------------------
+
+This module was built at `Openlabs <http://www.openlabs.co.in>`_. 
+
+Professional Support
+--------------------
+
+This module is professionally supported by `Openlabs <http://www.openlabs.co.in>`_.
+If you are looking for on-site teaching or consulting support, contact our
+`sales <mailto:sales@openlabs.co.in>`_ and `support
+<mailto:support@openlabs.co.in>`_ teams.
