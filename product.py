@@ -46,7 +46,9 @@ class ProductAttributeSelectionOption(ModelSQL, ModelView):
     __name__ = 'product.attribute.selection_option'
 
     name = fields.Char("Name", required=True, select=True, translate=True)
-    attribute = fields.Many2One("product.attribute", "Attribute", required=True)
+    attribute = fields.Many2One(
+        "product.attribute", "Attribute", required=True, ondelete='CASCADE'
+    )
 
 
 class ProductAttribute(ModelSQL, ModelView):
@@ -97,7 +99,9 @@ class Template:
     "Template"
     __name__ = 'product.template'
 
-    attribute_set = fields.Many2One('product.attribute.set', 'Set')
+    attribute_set = fields.Many2One(
+        'product.attribute.set', 'Set', ondelete='RESTRICT'
+    )
 
 
 class ProductProductAttribute(ModelSQL, ModelView):
@@ -111,7 +115,7 @@ class ProductProductAttribute(ModelSQL, ModelView):
     attribute = fields.Many2One(
         "product.attribute", "Attribute", required=True, select=True,
         domain=[('sets', '=', Eval('attribute_set'))],
-        depends=['attribute_set']
+        depends=['attribute_set'], ondelete='RESTRICT'
     )
 
     attribute_type = fields.Function(
@@ -149,7 +153,8 @@ class ProductProductAttribute(ModelSQL, ModelView):
         states={
             'required': Eval('attribute_type') == 'selection',
             'invisible': ~(Eval('attribute_type') == 'selection'),
-        }, depends=['attribute', 'attribute_type']
+        }, depends=['attribute', 'attribute_type'],
+        ondelete='RESTRICT'
     )
 
     value_boolean = fields.Boolean(
@@ -217,7 +222,7 @@ class Product:
 
     attribute_set = fields.Function(
         fields.Many2One('product.attribute.set', 'Set'),
-        'on_change_with_attribute_set'
+        'on_change_with_attribute_set',
     )
 
     @fields.depends('template')
