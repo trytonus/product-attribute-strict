@@ -2,4 +2,4 @@
 source = trytond.modules.product_attribute_strict
 
 [report]
-omit = */tests/*, */setup.py
+omit = */tests/*, */setup.py, */scripts/*
