@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<form string="Attribute">
+    <label name="name"/>
+    <field name="name"/>
+    <label name="display_name"/>
+    <field name="display_name"/>
+    <label name="type_"/>
+    <field name="type_"/>
+    <field name="selection" colspan="4"/>
+</form>

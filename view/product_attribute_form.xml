@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<form string="Product's Product Attribute">
+    <label name="attribute"/>
+    <field name="attribute"/>
+    <label name="attribute_set"/>
+    <field name="attribute_set"/>
+    <label name="value_char"/>
+    <field name="value_char"/>
+    <newline/>
+    <label name="value_numeric"/>
+    <field name="value_numeric"/>
+    <newline/>
+    <label name="value_float"/>
+    <field name="value_float"/>
+    <newline/>
+    <label name="value_selection"/>
+    <field name="value_selection"/>
+    <newline/>
+    <label name="value_boolean"/>
+    <field name="value_boolean"/>
+    <newline/>
+    <label name="value_integer"/>
+    <field name="value_integer"/>
+    <newline/>
+    <label name="value_date"/>
+    <field name="value_date"/>
+    <newline/>
+    <label name="value_datetime"/>
+    <field name="value_datetime"/>
+    <newline/>
+    <label name="product"/>
+    <field name="product"/>
+</form>
