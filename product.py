@@ -5,6 +5,9 @@
     :copyright: (c) 2015 by Openlabs Technologies & Consulting (P) Limited
     :license: BSD, see LICENSE for more details.
 """
+from datetime import datetime
+from datetime import time
+
 from trytond.model import ModelSQL, ModelView, fields
 from trytond.pool import PoolMeta
 from trytond.pyson import Eval
@@ -128,6 +131,11 @@ class ProductProductAttribute(ModelSQL, ModelView):
         'on_change_with_attribute_set'
     )
 
+    value = fields.Function(
+        fields.Char('Attribute Value'),
+        getter='on_change_with_value'
+    )
+
     value_char = fields.Char(
         "Value Char", states={
             'required': Eval('attribute_type') == 'char',
@@ -189,6 +197,23 @@ class ProductProductAttribute(ModelSQL, ModelView):
         """
         if self.attribute:
             return self.attribute.type_
+
+    @fields.depends('attribute')
+    def on_change_with_value(self, name=None):
+        """
+        Consolidated method to return attribute value
+        """
+        if self.attribute:
+            if self.attribute_type == 'selection':
+                return self.value_selection.name
+            if self.attribute_type == 'datetime':
+                # XXX: Localize to the timezone in context
+                return self.value_datetime.strftime("%Y-%m-%d %H:%M:%S")
+            if self.attribute_type == 'date':
+                return datetime.combine(self.value_date, time()). \
+                    strftime("%Y-%m-%d")
+            else:
+                return unicode(getattr(self, 'value_' + self.attribute_type))
 
     @fields.depends('product')
     def on_change_with_attribute_set(self, name=None):
