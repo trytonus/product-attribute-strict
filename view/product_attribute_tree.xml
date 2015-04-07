@@ -3,4 +3,5 @@
     <field name="product"/>
     <field name="attribute"/>
     <field name="attribute_type"/>
+    <field name="value"/>
 </tree>

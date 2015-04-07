@@ -9,6 +9,9 @@ import unittest
 import sys
 import os
 from decimal import Decimal
+from datetime import datetime
+from datetime import date
+from datetime import time
 
 import trytond.tests.test_tryton
 from trytond.tests.test_tryton import POOL, DB_NAME, USER, CONTEXT
@@ -82,6 +85,20 @@ class TestProduct(unittest.TestCase):
                 'name': 'Test Numeric',
             }])
 
+            # Datetime Attribute
+            datetime_attr, = self.Attribute.create([{
+                'type_': 'datetime',
+                'display_name': 'Datetime',
+                'name': 'Test Datetime',
+            }])
+
+            # Date Attribute
+            date_attr, = self.Attribute.create([{
+                'type_': 'date',
+                'display_name': 'Date',
+                'name': 'Test Date',
+            }])
+
             # Selection Attribute
             selection_attr, = self.Attribute.create([{
                 'type_': 'selection',
@@ -105,7 +122,10 @@ class TestProduct(unittest.TestCase):
             # Create Attribute sets
             attribute_set1, = self.AttributeSet.create([{
                 'name': 'Test attribute set 1',
-                'attributes': [('add', [char_attr.id, selection_attr.id])]
+                'attributes': [('add', [
+                    char_attr.id, selection_attr.id, datetime_attr.id,
+                    date_attr.id
+                ])]
             }])
 
             attribute_set2, = self.AttributeSet.create([{
@@ -124,7 +144,7 @@ class TestProduct(unittest.TestCase):
             # Create product with attributes defined for attribute set 1
             # Attributes to be added must be part of attribute set defined
             # for template
-            self.Product.create([{
+            prod1, = self.Product.create([{
                 'template': template.id,
                 'attributes': [
                     ('create', [{
@@ -133,9 +153,36 @@ class TestProduct(unittest.TestCase):
                     }, {
                         'attribute': selection_attr.id,
                         'value_selection': option1.id,
+                    }, {
+                        'attribute': datetime_attr.id,
+                        'value_datetime': datetime.now(),
+                    }, {
+                        'attribute': date_attr.id,
+                        'value_date': date.today(),
                     }])
                 ]
             }])
+
+            # Test the value field
+            self.assertEqual(
+                prod1.attributes[0].value,
+                prod1.attributes[0].value_char
+            )
+            self.assertEqual(
+                prod1.attributes[1].value,
+                prod1.attributes[1].value_selection.name
+            )
+            self.assertEqual(
+                prod1.attributes[2].value,
+                prod1.attributes[2].value_datetime.strftime("%Y-%m-%d %H:%M:%S")
+            )
+            self.assertEqual(
+                prod1.attributes[3].value,
+                datetime.combine(
+                    prod1.attributes[3].value_date,
+                    time()
+                ).strftime("%Y-%m-%d")
+            )
 
             #  Try creating product with attributes defined for attribute
             #  set 2 ( not part of attribute set defined for template), and
