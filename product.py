@@ -123,17 +123,17 @@ class ProductProductAttribute(ModelSQL, ModelView):
 
     attribute_type = fields.Function(
         fields.Selection(ATTRIBUTE_TYPES, "Attribute Type"),
-        'on_change_with_attribute_type'
+        'get_attribute_type'
     )
 
     attribute_set = fields.Function(
         fields.Many2One("product.attribute.set", "Attribute Set"),
-        'on_change_with_attribute_set'
+        'get_attribute_set'
     )
 
     value = fields.Function(
         fields.Char('Attribute Value'),
-        getter='on_change_with_value'
+        getter='get_value'
     )
 
     value_char = fields.Char(
@@ -191,37 +191,45 @@ class ProductProductAttribute(ModelSQL, ModelView):
     )
 
     @fields.depends('attribute')
-    def on_change_with_attribute_type(self, name=None):
+    def on_change_attribute(self):
+        return {
+            'attribute_type': self.attribute and self.attribute.type_ or None,
+        }
+
+    def get_attribute_type(self, name=None):
         """
         Returns type of attribute
         """
-        if self.attribute:
-            return self.attribute.type_
+        return self.attribute.type_
 
-    @fields.depends('attribute')
-    def on_change_with_value(self, name=None):
+    def get_value(self, name=None):
         """
         Consolidated method to return attribute value
         """
-        if self.attribute:
-            if self.attribute_type == 'selection':
-                return self.value_selection.name
-            if self.attribute_type == 'datetime':
-                # XXX: Localize to the timezone in context
-                return self.value_datetime.strftime("%Y-%m-%d %H:%M:%S")
-            if self.attribute_type == 'date':
-                return datetime.combine(self.value_date, time()). \
-                    strftime("%Y-%m-%d")
-            else:
-                return unicode(getattr(self, 'value_' + self.attribute_type))
+        if self.attribute_type == 'selection':
+            return self.value_selection.name
+        if self.attribute_type == 'datetime':
+            # XXX: Localize to the timezone in context
+            return self.value_datetime.strftime("%Y-%m-%d %H:%M:%S")
+        if self.attribute_type == 'date':
+            return datetime.combine(self.value_date, time()). \
+                strftime("%Y-%m-%d")
+        else:
+            return unicode(getattr(self, 'value_' + self.attribute_type))
 
-    @fields.depends('product')
-    def on_change_with_attribute_set(self, name=None):
+    def get_attribute_set(self, name=None):
         """
         Returns attribute set for corresponding product's template
         """
-        if self.product and self.product.template.attribute_set:
+        if self.product and self.product.template and \
+                self.product.template.attribute_set:
             return self.product.template.attribute_set.id
+
+    @fields.depends('product')
+    def on_change_product(self):
+        if self.product and self.product.template.attribute_set:
+            return {'attribute_set': self.product.template.attribute_set.id}
+        return {}
 
 
 class Product:
