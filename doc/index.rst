@@ -11,7 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-
+   product_attribute_description
 
 Indices and tables
 ==================
