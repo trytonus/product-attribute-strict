@@ -207,6 +207,22 @@ class TestProduct(unittest.TestCase):
                     ]
                 }])
 
+            # check on_change value for attribute type
+            prod_attribute = prod1.attributes[0]
+            prod_attribute.on_change_attribute()
+
+            self.assertEqual(
+                prod_attribute.attribute_type, prod_attribute.attribute.type_
+            )
+
+            # check value for attribute set by changing product
+            prod_attribute.on_change_product()
+
+            self.assertEqual(
+                prod_attribute.attribute_set,
+                prod_attribute.product.template.attribute_set
+            )
+
 
 def suite():
     """
