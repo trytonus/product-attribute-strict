@@ -112,7 +112,8 @@ class ProductProductAttribute(ModelSQL, ModelView):
     __name__ = 'product.product.attribute'
 
     product = fields.Many2One(
-        "product.product", "Product", select=True, required=True
+        "product.product", "Product", select=True, required=True,
+        ondelete='CASCADE'
     )
 
     attribute = fields.Many2One(
