@@ -84,7 +84,7 @@ class ProductAttribute(ModelSQL, ModelView):
         return 'char'
 
 
-class ProductAttributeAttributeSet(ModelSQL):
+class ProductAttributeAttributeSet(ModelSQL, ModelView):
     "Product Attribute - Set"
     __name__ = 'product.attribute-product.attribute-set'
 
