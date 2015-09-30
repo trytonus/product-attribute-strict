@@ -1,21 +1,6 @@
 Product Attributes (Strict)
 ===========================
 
-.. image:: https://travis-ci.org/openlabs/product-attribute-strict.svg?branch=develop
-    :target: https://travis-ci.org/openlabs/product-attribute-strict
-
-.. image:: https://pypip.in/download/openlabs_product_attribute_strict/badge.svg
-    :target: https://pypi.python.org/pypi//openlabs_product_attribute_strict/
-    :alt: Downloads
-
-.. image:: https://pypip.in/version/openlabs_product_attribute_strict/badge.svg
-    :target: https://pypi.python.org/pypi/openlabs_product_attribute_strict/
-    :alt: Latest Version
-
-.. image:: https://pypip.in/status/openlabs_product_attribute_strict/badge.svg
-    :target: https://pypi.python.org/pypi/openlabs_product_attribute_strict/
-    :alt: Development Status
-
 Tryton has a powerful system of attributes for products introduced by the
 ``product_attribute`` module. The module however uses the ``fields.Dict``
 (JSON in database) field type to store attributes and this reduces the
@@ -48,16 +33,3 @@ be found under ``scripts/migrate_from_core_module.py``
 
 Nope. You can use only one of the two modules and obviously we
 recommend ours
-
-Authors and Contributors
-------------------------
-
-This module was built at `Openlabs <http://www.openlabs.co.in>`_.
-
-Professional Support
---------------------
-
-This module is professionally supported by `Openlabs <http://www.openlabs.co.in>`_.
-If you are looking for on-site teaching or consulting support, contact our
-`sales <mailto:sales@openlabs.co.in>`_ and `support
-<mailto:support@openlabs.co.in>`_ teams.

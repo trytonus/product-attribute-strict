@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-    product_attribute_strict.py
-
-    :copyright: (c) 2015 by Openlabs Technologies & Consulting (P) Limited
-    :license: BSD, see LICENSE for more details.
-"""
 from datetime import datetime
 from datetime import time
 
@@ -192,9 +186,7 @@ class ProductProductAttribute(ModelSQL, ModelView):
 
     @fields.depends('attribute')
     def on_change_attribute(self):
-        return {
-            'attribute_type': self.attribute and self.attribute.type_ or None,
-        }
+        self.attribute_type = self.attribute and self.attribute.type_ or None
 
     def get_attribute_type(self, name=None):
         """
@@ -228,8 +220,7 @@ class ProductProductAttribute(ModelSQL, ModelView):
     @fields.depends('product')
     def on_change_product(self):
         if self.product and self.product.template.attribute_set:
-            return {'attribute_set': self.product.template.attribute_set.id}
-        return {}
+            self.attribute_set = self.product.template.attribute_set.id
 
 
 class Product:
