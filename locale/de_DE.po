@@ -1,0 +1,355 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:product.attribute,create_date:"
+msgid "Create Date"
+msgstr "Erstellungsdatum"
+
+msgctxt "field:product.attribute,create_uid:"
+msgid "Create User"
+msgstr "Erstellt durch"
+
+msgctxt "field:product.attribute,display_name:"
+msgid "Display Name"
+msgstr "Anzeigename"
+
+msgctxt "field:product.attribute,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.attribute,name:"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "field:product.attribute,rec_name:"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "field:product.attribute,selection:"
+msgid "Selection"
+msgstr "Auswahl"
+
+msgctxt "field:product.attribute,sets:"
+msgid "Sets"
+msgstr "Attributssätze"
+
+msgctxt "field:product.attribute,type_:"
+msgid "Type"
+msgstr "Typ"
+
+msgctxt "field:product.attribute,write_date:"
+msgid "Write Date"
+msgstr "Zuletzt geändert"
+
+msgctxt "field:product.attribute,write_uid:"
+msgid "Write User"
+msgstr "Letzte Änderung durch"
+
+msgctxt "field:product.attribute-product.attribute-set,attribute:"
+msgid "Attribute"
+msgstr "Attribut"
+
+msgctxt "field:product.attribute-product.attribute-set,attribute_set:"
+msgid "Set"
+msgstr "Attributssatz"
+
+msgctxt "field:product.attribute-product.attribute-set,create_date:"
+msgid "Create Date"
+msgstr "Erstellungsdatum"
+
+msgctxt "field:product.attribute-product.attribute-set,create_uid:"
+msgid "Create User"
+msgstr "Erstellt durch"
+
+msgctxt "field:product.attribute-product.attribute-set,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.attribute-product.attribute-set,rec_name:"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "field:product.attribute-product.attribute-set,write_date:"
+msgid "Write Date"
+msgstr "Zuletzt geändert"
+
+msgctxt "field:product.attribute-product.attribute-set,write_uid:"
+msgid "Write User"
+msgstr "Letzte Änderung durch"
+
+msgctxt "field:product.attribute.selection_option,attribute:"
+msgid "Attribute"
+msgstr "Attribut"
+
+msgctxt "field:product.attribute.selection_option,create_date:"
+msgid "Create Date"
+msgstr "Erstellungsdatum"
+
+msgctxt "field:product.attribute.selection_option,create_uid:"
+msgid "Create User"
+msgstr "Erstellt durch"
+
+msgctxt "field:product.attribute.selection_option,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.attribute.selection_option,name:"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "field:product.attribute.selection_option,rec_name:"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "field:product.attribute.selection_option,write_date:"
+msgid "Write Date"
+msgstr "Zuletzt geändert"
+
+msgctxt "field:product.attribute.selection_option,write_uid:"
+msgid "Write User"
+msgstr "Letzte Änderung durch"
+
+msgctxt "field:product.attribute.set,attributes:"
+msgid "Attributes"
+msgstr "Attribute"
+
+msgctxt "field:product.attribute.set,create_date:"
+msgid "Create Date"
+msgstr "Erstellungsdatum"
+
+msgctxt "field:product.attribute.set,create_uid:"
+msgid "Create User"
+msgstr "Erstellt durch"
+
+msgctxt "field:product.attribute.set,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.attribute.set,name:"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "field:product.attribute.set,rec_name:"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "field:product.attribute.set,write_date:"
+msgid "Write Date"
+msgstr "Zuletzt geändert"
+
+msgctxt "field:product.attribute.set,write_uid:"
+msgid "Write User"
+msgstr "Letzte Änderung durch"
+
+msgctxt "field:product.product,attribute_set:"
+msgid "Set"
+msgstr "Attributssatz"
+
+msgctxt "field:product.product,attributes:"
+msgid "Attributes"
+msgstr "Attribute"
+
+msgctxt "field:product.product.attribute,attribute:"
+msgid "Attribute"
+msgstr "Attribut"
+
+msgctxt "field:product.product.attribute,attribute_set:"
+msgid "Attribute Set"
+msgstr "Attributssatz"
+
+msgctxt "field:product.product.attribute,attribute_type:"
+msgid "Attribute Type"
+msgstr "Attributtyp"
+
+msgctxt "field:product.product.attribute,create_date:"
+msgid "Create Date"
+msgstr "Erstellungsdatum"
+
+msgctxt "field:product.product.attribute,create_uid:"
+msgid "Create User"
+msgstr "Erstellt durch"
+
+msgctxt "field:product.product.attribute,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.product.attribute,product:"
+msgid "Product"
+msgstr "Variante"
+
+msgctxt "field:product.product.attribute,rec_name:"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "field:product.product.attribute,value:"
+msgid "Attribute Value"
+msgstr "Attributwert"
+
+msgctxt "field:product.product.attribute,value_boolean:"
+msgid "Value Boolean"
+msgstr "Boolescher Wert"
+
+msgctxt "field:product.product.attribute,value_char:"
+msgid "Value Char"
+msgstr "Zeichenwert"
+
+msgctxt "field:product.product.attribute,value_date:"
+msgid "Value Date"
+msgstr "Datumswert"
+
+msgctxt "field:product.product.attribute,value_datetime:"
+msgid "Value Datetime"
+msgstr "Zeitwert"
+
+msgctxt "field:product.product.attribute,value_float:"
+msgid "Value Float"
+msgstr "Fließkommazahlwert"
+
+msgctxt "field:product.product.attribute,value_integer:"
+msgid "Value Integer"
+msgstr "Ganzzahlwert"
+
+msgctxt "field:product.product.attribute,value_numeric:"
+msgid "Value Numeric"
+msgstr "Numerischer Wert"
+
+msgctxt "field:product.product.attribute,value_selection:"
+msgid "Value Selection"
+msgstr "Auswahlwert"
+
+msgctxt "field:product.product.attribute,write_date:"
+msgid "Write Date"
+msgstr "Zuletzt geändert"
+
+msgctxt "field:product.product.attribute,write_uid:"
+msgid "Write User"
+msgstr "Letzte Änderung durch"
+
+msgctxt "field:product.template,attribute_set:"
+msgid "Set"
+msgstr "Attributssatz"
+
+msgctxt "model:ir.action,name:act_attribute_form"
+msgid "Attributes"
+msgstr "Attribute"
+
+msgctxt "model:ir.action,name:act_attribute_set_form"
+msgid "Attribute Sets"
+msgstr "Attributssätze"
+
+msgctxt "model:ir.ui.menu,name:menu_attribute"
+msgid "Attributes"
+msgstr "Attribute"
+
+msgctxt "model:ir.ui.menu,name:menu_attribute_set"
+msgid "Attribute Sets"
+msgstr "Attributssätze"
+
+msgctxt "model:product.attribute,name:"
+msgid "Product Attribute"
+msgstr "Variantenattribut"
+
+msgctxt "model:product.attribute-product.attribute-set,name:"
+msgid "Product Attribute - Set"
+msgstr "Variantenattribut - Attributssatz"
+
+msgctxt "model:product.attribute.selection_option,name:"
+msgid "Attribute Selection Option"
+msgstr "Attribut Auswahlsoption"
+
+msgctxt "model:product.attribute.set,name:"
+msgid "Product Attribute Set"
+msgstr "Variantenattributssatz"
+
+msgctxt "model:product.product.attribute,name:"
+msgid "Product's Product Attribute"
+msgstr "Variantenattribut"
+
+msgctxt "selection:product.attribute,type_:"
+msgid "Boolean"
+msgstr "Boolesch"
+
+msgctxt "selection:product.attribute,type_:"
+msgid "Char"
+msgstr "Zeichen"
+
+msgctxt "selection:product.attribute,type_:"
+msgid "Date"
+msgstr "Datum"
+
+msgctxt "selection:product.attribute,type_:"
+msgid "DateTime"
+msgstr "Zeit"
+
+msgctxt "selection:product.attribute,type_:"
+msgid "Float"
+msgstr "Fließkommazahl"
+
+msgctxt "selection:product.attribute,type_:"
+msgid "Integer"
+msgstr "Ganzzahl"
+
+msgctxt "selection:product.attribute,type_:"
+msgid "Numeric"
+msgstr "Numerisch"
+
+msgctxt "selection:product.attribute,type_:"
+msgid "Selection"
+msgstr "Auswahl"
+
+msgctxt "selection:product.product.attribute,attribute_type:"
+msgid "Boolean"
+msgstr "Boolesch"
+
+msgctxt "selection:product.product.attribute,attribute_type:"
+msgid "Char"
+msgstr "Zeichen"
+
+msgctxt "selection:product.product.attribute,attribute_type:"
+msgid "Date"
+msgstr "Datum"
+
+msgctxt "selection:product.product.attribute,attribute_type:"
+msgid "DateTime"
+msgstr "Zeit"
+
+msgctxt "selection:product.product.attribute,attribute_type:"
+msgid "Float"
+msgstr "Fließkommazahl"
+
+msgctxt "selection:product.product.attribute,attribute_type:"
+msgid "Integer"
+msgstr "Ganzzahl"
+
+msgctxt "selection:product.product.attribute,attribute_type:"
+msgid "Numeric"
+msgstr "Numerisch"
+
+msgctxt "selection:product.product.attribute,attribute_type:"
+msgid "Selection"
+msgstr "Auswahl"
+
+msgctxt "view:product.attribute.set:"
+msgid "Attribute Set"
+msgstr "Attributssatz"
+
+msgctxt "view:product.attribute.set:"
+msgid "Attribute Sets"
+msgstr "Attributssätze"
+
+msgctxt "view:product.attribute:"
+msgid "Attribute"
+msgstr "Attribut"
+
+msgctxt "view:product.attribute:"
+msgid "Attributes"
+msgstr "Attribute"
+
+msgctxt "view:product.product.attribute:"
+msgid "Product Attribute"
+msgstr "Variantenattribut"
+
+msgctxt "view:product.product.attribute:"
+msgid "Product's Product Attribute"
+msgstr "Variantenattribut"
