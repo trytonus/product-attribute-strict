@@ -8,8 +8,7 @@ from datetime import date
 from datetime import time
 
 import trytond.tests.test_tryton
-from trytond.tests.test_tryton import POOL, DB_NAME, USER, CONTEXT
-from trytond.transaction import Transaction
+from trytond.tests.test_tryton import POOL, ModuleTestCase, with_transaction
 from trytond.exceptions import UserError
 
 DIR = os.path.abspath(os.path.normpath(os.path.join(
@@ -19,10 +18,11 @@ if os.path.isdir(DIR):
     sys.path.insert(0, os.path.dirname(DIR))
 
 
-class TestProduct(unittest.TestCase):
+class TestProduct(ModuleTestCase):
     '''
     Test Product
     '''
+    module = 'product_attribute_strict'
 
     def setUp(self):
         """
@@ -50,172 +50,171 @@ class TestProduct(unittest.TestCase):
             'attribute_set': attribute_set,
         }])[0]
 
+    @with_transaction()
     def test0010_add_product_attributes(self):
         """
         Check if attributes can be added to product
         """
-        with Transaction().start(DB_NAME, USER, context=CONTEXT):
+        # Create Attributes
 
-            # Create Attributes
+        # Char attribute
+        char_attr, = self.Attribute.create([{
+            'name': 'Test Char',
+        }])
 
-            # Char attribute
-            char_attr, = self.Attribute.create([{
-                'name': 'Test Char',
-            }])
+        self.assertEqual(char_attr.type_, 'char')
 
-            self.assertEqual(char_attr.type_, 'char')
+        # Float attribute
+        float_attr, = self.Attribute.create([{
+            'type_': 'float',
+            'display_name': 'Float',
+            'name': 'Test Float',
+        }])
 
-            # Float attribute
-            float_attr, = self.Attribute.create([{
-                'type_': 'float',
-                'display_name': 'Float',
-                'name': 'Test Float',
-            }])
+        # Numeric Attribute
+        numeric_attr, = self.Attribute.create([{
+            'type_': 'numeric',
+            'display_name': 'Numeric',
+            'name': 'Test Numeric',
+        }])
 
-            # Numeric Attribute
-            numeric_attr, = self.Attribute.create([{
-                'type_': 'numeric',
-                'display_name': 'Numeric',
-                'name': 'Test Numeric',
-            }])
+        # Datetime Attribute
+        datetime_attr, = self.Attribute.create([{
+            'type_': 'datetime',
+            'display_name': 'Datetime',
+            'name': 'Test Datetime',
+        }])
 
-            # Datetime Attribute
-            datetime_attr, = self.Attribute.create([{
-                'type_': 'datetime',
-                'display_name': 'Datetime',
-                'name': 'Test Datetime',
-            }])
+        # Date Attribute
+        date_attr, = self.Attribute.create([{
+            'type_': 'date',
+            'display_name': 'Date',
+            'name': 'Test Date',
+        }])
 
-            # Date Attribute
-            date_attr, = self.Attribute.create([{
-                'type_': 'date',
-                'display_name': 'Date',
-                'name': 'Test Date',
-            }])
+        # Selection Attribute
+        selection_attr, = self.Attribute.create([{
+            'type_': 'selection',
+            'display_name': 'Selection',
+            'name': 'Test Selection',
+            'selection': [
+                ('create', [{
+                    'name': 'option1'
+                }, {
+                    'name': 'option2'
+                }])
+            ]
+        }])
 
-            # Selection Attribute
-            selection_attr, = self.Attribute.create([{
-                'type_': 'selection',
-                'display_name': 'Selection',
-                'name': 'Test Selection',
-                'selection': [
-                    ('create', [{
-                        'name': 'option1'
-                    }, {
-                        'name': 'option2'
-                    }])
-                ]
-            }])
+        # Rec name for attribute without display name
+        self.assertEqual(char_attr.rec_name, char_attr.name)
 
-            # Rec name for attribute without display name
-            self.assertEqual(char_attr.rec_name, char_attr.name)
+        # Rec name for attribute with both name and display name
+        self.assertEqual(float_attr.rec_name, float_attr.display_name)
 
-            # Rec name for attribute with both name and display name
-            self.assertEqual(float_attr.rec_name, float_attr.display_name)
+        # Create Attribute sets
+        attribute_set1, = self.AttributeSet.create([{
+            'name': 'Test attribute set 1',
+            'attributes': [('add', [
+                char_attr.id, selection_attr.id, datetime_attr.id,
+                date_attr.id
+            ])]
+        }])
 
-            # Create Attribute sets
-            attribute_set1, = self.AttributeSet.create([{
-                'name': 'Test attribute set 1',
-                'attributes': [('add', [
-                    char_attr.id, selection_attr.id, datetime_attr.id,
-                    date_attr.id
-                ])]
-            }])
+        attribute_set2, = self.AttributeSet.create([{
+            'name': 'Test attribute set 2',
+            'attributes': [('add', [numeric_attr.id, float_attr.id])]
+        }])
 
-            attribute_set2, = self.AttributeSet.create([{
-                'name': 'Test attribute set 2',
-                'attributes': [('add', [numeric_attr.id, float_attr.id])]
-            }])
+        # Create selection option for selection attribute
+        option1, = self.SelectionOption.create([{
+            'name': 'Test Option 1',
+            'attribute': selection_attr
+        }])
 
-            # Create selection option for selection attribute
-            option1, = self.SelectionOption.create([{
-                'name': 'Test Option 1',
-                'attribute': selection_attr
-            }])
+        template = self._create_product_template(attribute_set1)
 
-            template = self._create_product_template(attribute_set1)
+        # Create product with attributes defined for attribute set 1
+        # Attributes to be added must be part of attribute set defined
+        # for template
+        prod1, = self.Product.create([{
+            'template': template.id,
+            'attributes': [
+                ('create', [{
+                    'attribute': char_attr.id,
+                    'value_char': 'Test Char Value',
+                }, {
+                    'attribute': selection_attr.id,
+                    'value_selection': option1.id,
+                }, {
+                    'attribute': datetime_attr.id,
+                    'value_datetime': datetime.now(),
+                }, {
+                    'attribute': date_attr.id,
+                    'value_date': date.today(),
+                }])
+            ]
+        }])
 
-            # Create product with attributes defined for attribute set 1
-            # Attributes to be added must be part of attribute set defined
-            # for template
-            prod1, = self.Product.create([{
+        # Test the value field
+        self.assertEqual(
+            prod1.attributes[0].value,
+            prod1.attributes[0].value_char
+        )
+        self.assertEqual(
+            prod1.attributes[1].value,
+            prod1.attributes[1].value_selection.name
+        )
+        self.assertEqual(
+            prod1.attributes[2].value,
+            prod1.attributes[2].value_datetime.strftime("%Y-%m-%d %H:%M:%S")
+        )
+        self.assertEqual(
+            prod1.attributes[3].value,
+            datetime.combine(
+                prod1.attributes[3].value_date,
+                time()
+            ).strftime("%Y-%m-%d")
+        )
+
+        #  Try creating product with attributes defined for attribute
+        #  set 2 ( not part of attribute set defined for template), and
+        #  error will be raised
+        with self.assertRaises(UserError):
+            self.Product.create([{
                 'template': template.id,
                 'attributes': [
                     ('create', [{
-                        'attribute': char_attr.id,
-                        'value_char': 'Test Char Value',
-                    }, {
-                        'attribute': selection_attr.id,
-                        'value_selection': option1.id,
-                    }, {
-                        'attribute': datetime_attr.id,
-                        'value_datetime': datetime.now(),
-                    }, {
-                        'attribute': date_attr.id,
-                        'value_date': date.today(),
+                        'attribute': numeric_attr.id,
+                        'value_numeric': Decimal('10'),
+                    }])
+                ]
+            }])
+            self.Product.create([{
+                'template': template.id,
+                'attributes': [
+                    ('create', [{
+                        'attribute': float_attr.id,
+                        'value_float': 1.23,
                     }])
                 ]
             }])
 
-            # Test the value field
-            self.assertEqual(
-                prod1.attributes[0].value,
-                prod1.attributes[0].value_char
-            )
-            self.assertEqual(
-                prod1.attributes[1].value,
-                prod1.attributes[1].value_selection.name
-            )
-            self.assertEqual(
-                prod1.attributes[2].value,
-                prod1.attributes[2].value_datetime.strftime("%Y-%m-%d %H:%M:%S")
-            )
-            self.assertEqual(
-                prod1.attributes[3].value,
-                datetime.combine(
-                    prod1.attributes[3].value_date,
-                    time()
-                ).strftime("%Y-%m-%d")
-            )
+        # check on_change value for attribute type
+        prod_attribute = prod1.attributes[0]
+        prod_attribute.on_change_attribute()
 
-            #  Try creating product with attributes defined for attribute
-            #  set 2 ( not part of attribute set defined for template), and
-            #  error will be raised
-            with self.assertRaises(UserError):
-                self.Product.create([{
-                    'template': template.id,
-                    'attributes': [
-                        ('create', [{
-                            'attribute': numeric_attr.id,
-                            'value_numeric': Decimal('10'),
-                        }])
-                    ]
-                }])
-                self.Product.create([{
-                    'template': template.id,
-                    'attributes': [
-                        ('create', [{
-                            'attribute': float_attr.id,
-                            'value_float': 1.23,
-                        }])
-                    ]
-                }])
+        self.assertEqual(
+            prod_attribute.attribute_type, prod_attribute.attribute.type_
+        )
 
-            # check on_change value for attribute type
-            prod_attribute = prod1.attributes[0]
-            prod_attribute.on_change_attribute()
+        # check value for attribute set by changing product
+        prod_attribute.on_change_product()
 
-            self.assertEqual(
-                prod_attribute.attribute_type, prod_attribute.attribute.type_
-            )
-
-            # check value for attribute set by changing product
-            prod_attribute.on_change_product()
-
-            self.assertEqual(
-                prod_attribute.attribute_set,
-                prod_attribute.product.template.attribute_set
-            )
+        self.assertEqual(
+            prod_attribute.attribute_set,
+            prod_attribute.product.template.attribute_set
+        )
 
 
 def suite():
