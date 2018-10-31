@@ -3,7 +3,7 @@ from datetime import datetime
 from datetime import time
 
 from trytond.model import ModelSQL, ModelView, fields
-from trytond.pool import PoolMeta
+from trytond.pool import PoolMeta, Pool
 from trytond.pyson import Eval
 from trytond.transaction import Transaction
 
@@ -247,12 +247,22 @@ class Product:
 
     attribute_set = fields.Function(
         fields.Many2One('product.attribute.set', 'Set'),
-        'on_change_with_attribute_set',
+        'get_attribute_set',
     )
+
+    @classmethod
+    def get_attribute_set(cls, products, name):
+        res = {}
+        attribute_set = Transaction().context.get('attribute_set')
+        for product in products:
+            if product.template and \
+                    getattr(product.template, "attribute_set", None):
+                attribute_set = product.template.attribute_set.id
+            res[product.id] = attribute_set
+        return res
 
     @fields.depends('template')
     def on_change_with_attribute_set(self, name=None):
-        if self.template and getattr(self.template, 'attribute_set', None):
-            return self.template.attribute_set.id
+        Product = Pool().get("product.product")
 
-        return Transaction().context.get('attribute_set')  # pragma: no cover
+        return Product.get_attribute_set([self], name="attribute_set")[self.id]
