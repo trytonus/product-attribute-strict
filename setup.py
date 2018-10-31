@@ -103,8 +103,8 @@ requires.append(
 setup(
     name='%s_%s' % (PREFIX, MODULE),
     version=info.get('version', '0.0.1'),
-    description="""Experimental module to improve Product Attribute module
-        consistency""",
+    description="Experimental module to improve Product Attribute module" +
+    "consistency",
     author="Fulfil.IO Inc.",
     author_email='info@fulfil.io',
     url='http://www.fulfil.io/',
